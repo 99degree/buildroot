@@ -1,0 +1,29 @@
+config BR2_PACKAGE_KMSCON
+	bool "kmscon"
+	depends on BR2_TOOLCHAIN_GCC_AT_LEAST_4_8
+	depends on BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_8
+#	depends on BR2_INSTALL_LIBSTDCPP
+	depends on BR2_TOOLCHAIN_HAS_THREADS # libdrm
+#	depends on BR2_LIBXKBCOMMIN
+	depends on BR2_PACKAGE_LIBXKBCOMMON
+	depends on BR2_PACKAGE_LIBTSM
+        depends on BR2_PACKAGE_LIBDRM
+	select BR2_PACKAGE_LIBDRM
+	select BR2_PACKAGE_LIBXKBCOMMON
+	select BR2_PACKAGE_LIBTSM
+        select BR2_PACKAGE_LIBTSM
+	help
+	  kmscon is a C++11 library for kernel mode setting.
+
+if BR2_PACKAGE_KMSCON
+
+config BR2_PACKAGE_KMSCON_INSTALL_TESTS
+	bool "Install kmscon programs"
+	help
+	  This option allows to install the kmsxx test programs.
+
+endif
+
+comment "kmscon needs a toolchain w/ threads, C++, gcc >= 4.8, headers >= 3.8"
+	depends on !BR2_TOOLCHAIN_HAS_THREADS || \
+		!BR2_TOOLCHAIN_GCC_AT_LEAST_4_8 || !BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_8
